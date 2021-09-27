@@ -26,6 +26,8 @@ HuffmanTree ConstructHT(long data[][2], size_t size){                          /
         HTNode * pNode = ConstructNode(buffer[0]->weight+buffer[1]->weight, -1);
         pNode->pLeft = buffer[0];
         pNode->pRight = buffer[1];
+        buffer[0]->pParent = pNode;
+        buffer[1]->pParent = pNode;
         ListAppend(&HTNodeList, pNode);
         remain--;
     }

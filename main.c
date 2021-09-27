@@ -1,25 +1,13 @@
 #include <stdio.h>
-#include "LList.h"
+#include "HuffmanTree.h"
 
-char compare(void* a, void* b){
-    if((a > b)) return 1;
-    else return 0;
-}
-char compareInt(void* a, void* b){
-    if((*((int*)a))>(*((int*)b))) return 1;
-    else return 0;
-}
 int main() {
-    LList list = ListInit();
-    int x[100];
-    for(int i = 99; i>=0; i--){
-        x[i] = i;
-        ListAppend(&list,x+(99-i));
+    long data[5][2];
+    for(int i = 1; i<6; i++){
+        data[i-1][0] = i;
+        data[i-1][1] = 'a'+i;
     }
-    for(int i = 0; i<100; i++){
-        int b = *(int*)ListRemove(&list, ListFindMin(list,compareInt));
-        printf("i:%d\tb:%d\n",i,b);
-    }
+    HuffmanTree test = ConstructHT(data, 5);
     return 0;
 }
 
