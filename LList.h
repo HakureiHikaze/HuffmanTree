@@ -14,6 +14,9 @@ typedef struct LNode_{
 typedef struct LList_{
     LNode* pHead;
 }LList;
+
+LList ListInit();
+
 /**
  * @brief 表尾追加结点
  * @param pList 链表list

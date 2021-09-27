@@ -5,6 +5,12 @@
 
 #include "LList.h"
 
+LList ListInit(){
+    LList rtn;
+    rtn.pHead = 0;
+    return rtn;
+}
+
 void ListAppend(LList* pList, void* pData){
     if(!pList->pHead){
         pList->pHead = (LNode*) calloc(1, sizeof (LNode));
@@ -50,7 +56,7 @@ size_t ListFindMin(LList list, char(*compareCallback)(void*, void*)){
     LNode* p = list.pHead;
     LNode* q = p;
     size_t index = 0;
-    for(size_t i = 0;p->pNext;i++){
+    for(size_t i = 1;p->pNext;i++){
         p = p->pNext;
         if(compareCallback(q->pData, p->pData)){
             q = p;
