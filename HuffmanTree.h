@@ -6,6 +6,7 @@
 #pragma once
 
 #include "HTNode.h"
+#include "LList.h"
 #include <stdlib.h>
 
 typedef struct HuffmanTree_{
