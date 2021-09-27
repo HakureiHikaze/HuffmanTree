@@ -5,14 +5,20 @@ char compare(void* a, void* b){
     if((a > b)) return 1;
     else return 0;
 }
+char compareInt(void* a, void* b){
+    if((*((int*)a))>(*((int*)b))) return 1;
+    else return 0;
+}
 int main() {
     LList list = ListInit();
-    for(int i = 4; i>=0; i--){
-        ListAppend(&list, (void*)i);
+    int x[100];
+    for(int i = 99; i>=0; i--){
+        x[i] = i;
+        ListAppend(&list,x+(99-i));
     }
-    for(int i = 0; i<5; i++){
-        int b = ListRemove(&list, ListFindMin(list,compare));
-        printf("\ni:%d\nb:%d\n",i,b);
+    for(int i = 0; i<100; i++){
+        int b = *(int*)ListRemove(&list, ListFindMin(list,compareInt));
+        printf("i:%d\tb:%d\n",i,b);
     }
     return 0;
 }

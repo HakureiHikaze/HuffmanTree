@@ -27,6 +27,9 @@ void ListAppend(LList* pList, void* pData){
 
 void* ListRemove(LList* pList, size_t index){
     void * pRtn = 0;
+    if(!pList->pHead){
+        return pRtn;
+    }
     LNode * p = pList->pHead;
     LNode * q = p;
     for(size_t i = 0; i < index;i++){
