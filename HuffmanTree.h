@@ -12,4 +12,4 @@ typedef struct HuffmanTree_{
     HTNode* pRoot;
 }HuffmanTree;
 
-extern HuffmanTree ConstructHT(long**, size_t);
+extern HuffmanTree ConstructHT(long[][2], size_t);

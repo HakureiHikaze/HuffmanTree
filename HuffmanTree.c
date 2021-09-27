@@ -5,18 +5,18 @@
 
 #include "HuffmanTree.h"
 
-HuffmanTree ConstructHT(long** data, size_t size){
+HuffmanTree ConstructHT(long data[][2], size_t size){                          //创建哈夫曼树
     HuffmanTree rtn;
-    HuffmanTree** pArrayHT = (HuffmanTree**)calloc(size, sizeof(void*));
-    for(size_t i = 0; i<size; i++){
+    HuffmanTree** pArrayHT = (HuffmanTree**)calloc(size, sizeof(void*));    //HuffmanTree的指针的数组
+    for(size_t i = 0; i<size; i++){                                         //预先分配HTNode空间
         pArrayHT[i] = (HuffmanTree*)malloc(sizeof(HuffmanTree));
-        pArrayHT[i]->pRoot = ConstructNode(data[i][1], data[i][2]);
+        pArrayHT[i]->pRoot = ConstructNode(data[i][0], data[i][1]);
     }
-    size_t remain = size;
+    size_t remain = size;                                                   //哈夫曼树数组剩余树数量
     while(remain > 1){
         size_t index[2];
         index[0] = 0;index[1] = 0;
-        for(size_t i = 2; i<size; i++){
+        for(size_t i = 2; i<size; i++){                                     //初始最小权重树
             if(index[0] == 0 && index[1] == 0) {
                 if(pArrayHT[0]->pRoot->weight < pArrayHT[1]->pRoot->weight)
                 {
@@ -27,7 +27,7 @@ HuffmanTree ConstructHT(long** data, size_t size){
                     index[1] = 0;
                 }
             }
-            if(pArrayHT[i]){
+            if(pArrayHT[i]){                                                //搜索全数组最小权重树
                 if(pArrayHT[i]->pRoot->weight < pArrayHT[index[0]]->pRoot->weight){
                     index[1] = index[0];
                     index[0] = i;
