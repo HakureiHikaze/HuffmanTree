@@ -4,7 +4,7 @@
 //
 
 #include "HuffmanTree.h"
-
+#include <stdbool.h>
 char compareHTNodeWeight(void* a, void* b){
     if(((HTNode*)a)->weight > ((HTNode*)b)->weight){
         return 1;
