@@ -4,7 +4,19 @@
 //
 #include "CodeTable.h"
 
-extern void QSort(CodeTable* table, unsigned char low, unsigned high);
+void QSort(CodeTable* table, unsigned char low, unsigned high);
+unsigned char QSPartition(CodeTable* table, unsigned char low, unsigned high);
+void CTItemCpy(CTItem* to, CTItem* from){
+    to->size = from->size;
+    to->value = from->value;
+    to->weight = from->weight;
+}
+
+void CTItemSet(CTItem* to, long weight, unsigned char value, unsigned char size){
+    to->size = size;
+    to->weight = weight;
+    to->value = value;
+}
 
 CodeTable* CTInit(){
     CodeTable * p = (CodeTable*) malloc(sizeof(CodeTable));
@@ -24,33 +36,44 @@ void CTFree(CodeTable* table){
 void CTSwap(CodeTable* table, unsigned char indexA, unsigned char indexB){
     if(indexA>=table->size || indexB>= table->size) exit(-2);
     CTItem * pBuffer = (CTItem*) calloc(1, sizeof(CTItem));
-    pBuffer->size = table->pArray[indexA].size;
-    pBuffer->weight = table->pArray[indexA].weight;
-    pBuffer->value = table->pArray[indexA].value;
-    table->pArray[indexA].size = table->pArray[indexB].size;
-    table->pArray[indexA].weight = table->pArray[indexB].weight;
-    table->pArray[indexA].value = table->pArray[indexB].value;
-    table->pArray[indexB].size = pBuffer->size;
-    table->pArray[indexB].weight = pBuffer->weight;
-    table->pArray[indexB].value = pBuffer->value;
+    CTItemCpy(pBuffer, &table->pArray[indexA]);
+    CTItemCpy(&table->pArray[indexA], &table->pArray[indexB]);
+    CTItemCpy(&table->pArray[indexB], pBuffer);
 }
 
 
 void CTAppend(CodeTable* table, unsigned char value, long weight, unsigned char size){
     if(table->size>=table->capacity){
-        if(table->capacity>= 512) exit(-2);
+        if(table->capacity>= 256) exit(-2);
         CTItem * pNew = (CTItem*)realloc(table->pArray,table->capacity*2* sizeof(CTItem));
         table->capacity*=2;
         table->pArray = pNew;
     }
-    table->pArray[table->size].value = value;
-    table->pArray[table->size].weight = weight;
-    table->pArray[table->size].size = size;
+    CTItemSet(&table->pArray[table->size],weight, value,size);
     table->size++;
 }
 
-void QSort(CodeTable* table, unsigned char low, unsigned high){
+unsigned char QSPartition(CodeTable* table, unsigned char low, unsigned high){
+    long pivot = table->pArray[low].weight;
+    while(low<high){
+        while(low<high && table->pArray[high].weight <= pivot){
+            high--;
+        }
+        CTSwap(table, low, high);
+        while(low<high && table->pArray[low].weight >= pivot){
+            low++;
+        }
+        CTSwap(table, low, high);
+    }
+    return low;
+}
 
+void QSort(CodeTable* table, unsigned char low, unsigned high){
+    if(low < high){
+        unsigned char pivotIndex = QSPartition(table, low, high);
+        if(pivotIndex)QSort(table, low, pivotIndex-1);
+        if(pivotIndex < high)QSort(table, pivotIndex+1, high);
+    }
 }
 
 void CTQSort(CodeTable* table){
