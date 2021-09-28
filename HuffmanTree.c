@@ -4,7 +4,6 @@
 //
 
 #include "HuffmanTree.h"
-#include <stdbool.h>
 char compareHTNodeWeight(void* a, void* b){
     if(((HTNode*)a)->weight > ((HTNode*)b)->weight){
         return 1;
@@ -12,7 +11,7 @@ char compareHTNodeWeight(void* a, void* b){
         return 0;
     }
 }
-
+//todo: 把哈夫曼树的输入改为vector
 HuffmanTree ConstructHT(long data[][2], size_t size){                          //创建哈夫曼树
     LList HTNodeList = ListInit();
     size_t remain = size;

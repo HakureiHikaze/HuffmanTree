@@ -5,13 +5,18 @@
 
 int main() {
     CodeTable * test = CTInit();
-    for(int i = 0; i<256; i++){
-        CTAppend(test,'a',3+i,3);
+    for(int i = 0; i<26; i++){
+        CTAppend(test,'a'+i,3+i);
     }
     CTQSort(test);
-    for(int i = 0; i<256; i++){
-        printf("%ld ", test->pArray[i].weight);
+    for(int i = 0; i<26; i++){
+        printf("%ld\t", test->pArray[i].weight);
     }
+    printf("\n");
+    for(int i = 0; i<26; i++){
+        printf("%c\t", test->pArray[i].value);
+    }
+    printf("\n");
     return 0;
 }
 

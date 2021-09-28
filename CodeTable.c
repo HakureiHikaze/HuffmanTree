@@ -7,13 +7,11 @@
 void QSort(CodeTable* table, unsigned char low, unsigned high);
 unsigned char QSPartition(CodeTable* table, unsigned char low, unsigned high);
 void CTItemCpy(CTItem* to, CTItem* from){
-    to->size = from->size;
     to->value = from->value;
     to->weight = from->weight;
 }
 
-void CTItemSet(CTItem* to, long weight, unsigned char value, unsigned char size){
-    to->size = size;
+void CTItemSet(CTItem* to, long weight, unsigned char value){
     to->weight = weight;
     to->value = value;
 }
@@ -42,14 +40,14 @@ void CTSwap(CodeTable* table, unsigned char indexA, unsigned char indexB){
 }
 
 
-void CTAppend(CodeTable* table, unsigned char value, long weight, unsigned char size){
+void CTAppend(CodeTable* table, unsigned char value, long weight){
     if(table->size>=table->capacity){
         if(table->capacity>= 256) exit(-2);
         CTItem * pNew = (CTItem*)realloc(table->pArray,table->capacity*2* sizeof(CTItem));
         table->capacity*=2;
         table->pArray = pNew;
     }
-    CTItemSet(&table->pArray[table->size],weight, value,size);
+    CTItemSet(&table->pArray[table->size],weight, value);
     table->size++;
 }
 
