@@ -2,48 +2,48 @@
 // Created by Hikaze on 2021/9/29 1:04.
 // 
 //
-#include "CodeTable.h"
+#include "TableVector.h"
 
-void QSort(CodeTable* table, unsigned char low, unsigned high);
-unsigned char QSPartition(CodeTable* table, unsigned char low, unsigned high);
-void CTItemCpy(CTItem* to, CTItem* from){
+void QSort(FrequencyTable* table, unsigned char low, unsigned high);
+unsigned char QSPartition(FrequencyTable* table, unsigned char low, unsigned high);
+void CTItemCpy(FTItem* to, FTItem* from){
     to->value = from->value;
     to->weight = from->weight;
 }
 
-void CTItemSet(CTItem* to, long weight, unsigned char value){
+void CTItemSet(FTItem* to, long weight, unsigned char value){
     to->weight = weight;
     to->value = value;
 }
 
-CodeTable* CTInit(){
-    CodeTable * p = (CodeTable*) malloc(sizeof(CodeTable));
-    p->pArray = (CTItem*) calloc(8, sizeof(CTItem));
+FrequencyTable* CTInit(){
+    FrequencyTable * p = (FrequencyTable*) malloc(sizeof(FrequencyTable));
+    p->pArray = (FTItem*) calloc(8, sizeof(FTItem));
     p->capacity = 8;
     p->size = 0;
     return p;
 }
 
-void CTFree(CodeTable* table){
+void CTFree(FrequencyTable* table){
     if(!table)return;
     if(!table->pArray)return;
     free(table->pArray);
     free(table);
 }
 
-void CTSwap(CodeTable* table, unsigned char indexA, unsigned char indexB){
+void CTSwap(FrequencyTable* table, unsigned char indexA, unsigned char indexB){
     if(indexA>=table->size || indexB>= table->size) exit(-2);
-    CTItem * pBuffer = (CTItem*) calloc(1, sizeof(CTItem));
+    FTItem * pBuffer = (FTItem*) calloc(1, sizeof(FTItem));
     CTItemCpy(pBuffer, &table->pArray[indexA]);
     CTItemCpy(&table->pArray[indexA], &table->pArray[indexB]);
     CTItemCpy(&table->pArray[indexB], pBuffer);
 }
 
 
-void CTAppend(CodeTable* table, unsigned char value, long weight){
+void CTAppend(FrequencyTable* table, unsigned char value, long weight){
     if(table->size>=table->capacity){
         if(table->capacity>= 256) exit(-2);
-        CTItem * pNew = (CTItem*)realloc(table->pArray,table->capacity*2* sizeof(CTItem));
+        FTItem * pNew = (FTItem*)realloc(table->pArray, table->capacity * 2 * sizeof(FTItem));
         table->capacity*=2;
         table->pArray = pNew;
     }
@@ -51,7 +51,7 @@ void CTAppend(CodeTable* table, unsigned char value, long weight){
     table->size++;
 }
 
-unsigned char QSPartition(CodeTable* table, unsigned char low, unsigned high){
+unsigned char QSPartition(FrequencyTable* table, unsigned char low, unsigned high){
     long pivot = table->pArray[low].weight;
     while(low<high){
         while(low<high && table->pArray[high].weight <= pivot){
@@ -66,7 +66,7 @@ unsigned char QSPartition(CodeTable* table, unsigned char low, unsigned high){
     return low;
 }
 
-void QSort(CodeTable* table, unsigned char low, unsigned high){
+void QSort(FrequencyTable* table, unsigned char low, unsigned high){
     if(low < high){
         unsigned char pivotIndex = QSPartition(table, low, high);
         if(pivotIndex)QSort(table, low, pivotIndex-1);
@@ -74,6 +74,6 @@ void QSort(CodeTable* table, unsigned char low, unsigned high){
     }
 }
 
-void CTQSort(CodeTable* table){
+void CTQSort(FrequencyTable* table){
     QSort(table,0,table->size-1);
 }

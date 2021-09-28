@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include "BitStream.h"
-#include "CodeTable.h"
+#include "TableVector.h"
 
 
 int main() {
-    CodeTable * test = CTInit();
+    FrequencyTable * test = CTInit();
     for(int i = 0; i<26; i++){
         CTAppend(test,'a'+i,3+i);
     }
