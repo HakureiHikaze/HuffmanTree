@@ -7,7 +7,8 @@
 
 BitStream* BSInit(size_t size){
     BitStream * rtn = (BitStream*) calloc(1, sizeof (BitStream));
-    rtn->pBinary = calloc(size, 1);
+    rtn->pBinary = calloc(size/8, 1);
+    rtn->size = size;
     return rtn;
 }
 void BSFree(BitStream* bitStream){
