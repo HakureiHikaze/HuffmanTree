@@ -29,3 +29,17 @@ unsigned char BSGetBit(BitStream* bitStream, size_t index){
     if(index>=bitStream->size) exit(-2);
     return ((*(unsigned char*)(bitStream->pBinary+index/8)) >> index%8) & 1;
 }
+
+void BSSetByte(BitStream* bitStream,unsigned char data, size_t index, unsigned char size){
+    for(unsigned char i = 0; i<size; i++){
+        BSSetBit(bitStream,data>>(size-i-1)&1,index+i);
+    }
+}
+
+unsigned long BSReadByte(BitStream* bitStream,size_t index, unsigned char size){
+    unsigned long buffer = 0;
+    for(unsigned char i=0;i<size;i++){
+        buffer |= BSGetBit(bitStream,index+i)<<(size-i-1);
+    }
+    return buffer;
+}

@@ -4,17 +4,14 @@
 
 
 int main() {
-    BitStream * a = BSInit(34359738368);
-    for(size_t i = 0; i<34359738368;i++){
-        if(i/8%2 == 0){
-            BSSetBit(a,1,i);
-        }else{
-            BSSetBit(a,0,i);
-        }
-    }
-    for(int i = 0; i<512;i++){
+    BitStream * a = BSInit(1024);
+    BSSetByte(a,0b00000101,0,3);
+    BSSetByte(a,0b10110111,3,8);
+    printf("%lu\n", BSReadByte(a,0,4));
+    for(int i = 0; i<16;i++){
         printf("%d", BSGetBit(a,i));
     }
+    BSFree(a);
     return 0;
 }
 
