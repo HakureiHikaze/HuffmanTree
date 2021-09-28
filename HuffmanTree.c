@@ -21,7 +21,7 @@ HuffmanTree ConstructHT(long data[][2], size_t size){                          /
     }
     HTNode* buffer[2];
     while(remain > 1){
-        buffer[0] = ListRemove(&HTNodeList, ListFindMin(HTNodeList, compareHTNodeWeight));
+        buffer[0] = ListRemove(&HTNodeList, ListFindMin(HTNodeList, compareHTNodeWeight)); //todo: ListFindMin返回指针效果更佳
         buffer[1] = ListRemove(&HTNodeList, ListFindMin(HTNodeList, compareHTNodeWeight));
         HTNode * pNode = ConstructNode(buffer[0]->weight+buffer[1]->weight, -1);
         pNode->pLeft = buffer[0];

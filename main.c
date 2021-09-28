@@ -14,16 +14,15 @@ typedef union teststruct_{
 
 int main() {
     printf_s("%llu", sizeof(teststruct));
-    teststruct a;
-    a.b1 = 0b1;
-    a.b2 = 0b11;
-    a.b3 = 0b111;
-    a.b4 = 0b1111;
-    a.b5 = 0b11111;
-    a.b6 = 0b111111;
-    a.b7 = 0b1111111;
-    a.b8 = 0b11111111;
-    a.b8 = a.b8<<3;
+    unsigned long test = 1ul;
+    teststruct a[4];
+    a[0].b8 = 0xff;
+    a[1].b8 = 0;
+    a[2].b8 = 0xff;
+    a[3].b8 = 0;
+    for(int i = 0;i<32;i++){
+        printf("\ni:%d\tbit:%d\n", i, (*((unsigned char *) (&a) + i / 8)) << (i & 8) != 0);
+    }
     return 0;
 }
 
