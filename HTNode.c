@@ -6,13 +6,13 @@
 #include "HTNode.h"
 #include <stdlib.h>
 
-HTNode* ConstructNode(long _weight, long _data){
+HTNode* HTNodeInit(long _weight, long _data){
     HTNode* pRtn = (HTNode*)calloc(1,sizeof(HTNode));
     pRtn->weight = _weight;
     pRtn->data = _data;
     return pRtn;
 }
 
-void DeConstructNode(HTNode* pNode){
+void HTNodeFree(HTNode* pNode){
     free(pNode);
 }
