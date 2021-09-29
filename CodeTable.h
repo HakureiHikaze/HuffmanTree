@@ -8,7 +8,8 @@
 typedef struct CTItem_{
     long weight;
     char value;
-    unsigned char code;
+    unsigned int code;
+    unsigned int width;
 }CTItem;
 
 typedef struct CodeTable_{
@@ -25,5 +26,6 @@ extern void CTAddValue(CodeTable* table, char value);
 extern void CTSwap(CodeTable* table, unsigned char indexA, unsigned char indexB);
 extern void CTQSort(CodeTable* table);
 extern unsigned int CTSearchByValue(CodeTable* table, char value);
-extern unsigned int CTSearchByCode(CodeTable* table, unsigned char code);
-extern void CTSetCode(CodeTable* table, char value, unsigned char code);
+extern unsigned int CTSearchByCode(CodeTable* table, unsigned int code);
+extern void CTSetCode(CodeTable* table, char value, unsigned int code);
+extern void CTSetSize(CodeTable* table, unsigned char size);

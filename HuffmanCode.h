@@ -5,5 +5,9 @@
 
 #pragma once
 #include "HuffmanTree.h"
+#include "BitStream.h"
+#include <stdio.h>
 
 extern CodeTable* Census(const char* str);
+extern void HCGenCodeTable(CodeTable* table, HuffmanTree* tree);
+extern BitStream * HCEncode(const char* str);

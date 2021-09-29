@@ -17,9 +17,14 @@ void BSFree(BitStream* bitStream){
 }
 
 void BSSetBit(BitStream* bitStream, unsigned char bool, size_t index){
+
     if(!bitStream) exit(-1);
     if(!bitStream->pBinary)exit(-1);
-    if(index>=bitStream->size) exit(-2);
+    if(index>= bitStream->size){
+        unsigned char* pNew = (unsigned char*) realloc(bitStream->pBinary, 2*bitStream->size*sizeof (unsigned char));
+        bitStream->pBinary = pNew;
+        bitStream->size*=2;
+    }
     *(unsigned char*)(bitStream->pBinary+index/8) |= bool<<index%8;
 }
 
@@ -31,6 +36,11 @@ unsigned char BSGetBit(BitStream* bitStream, size_t index){
 }
 
 void BSSetByte(BitStream* bitStream,unsigned char data, size_t index, unsigned char size){
+    if(index+size>bitStream->size){
+        unsigned char* pNew = (unsigned char*) realloc(bitStream->pBinary, 2*bitStream->size*sizeof (unsigned char));
+        bitStream->pBinary = pNew;
+        bitStream->size*=2;
+    }
     for(unsigned char i = 0; i<size; i++){
         BSSetBit(bitStream,data>>(size-i-1)&1,index+i);
     }

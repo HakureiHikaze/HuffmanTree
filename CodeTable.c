@@ -12,17 +12,16 @@ void CTItemCpy(CTItem* to, CTItem* from){
     to->code = from->code;
 }
 
-void CTItemSet(CTItem* to, long weight, char value,unsigned char code){
+void CTItemSet(CTItem* to, long weight, char value,unsigned int code){
     to->weight = weight;
     to->value = value;
     to->code = code;
 }
 
 CodeTable* CTInit(){
-    CodeTable * p = (CodeTable*) malloc(sizeof(CodeTable));
+    CodeTable * p = (CodeTable*) calloc(1, sizeof(CodeTable));
     p->pArray = (CTItem*) calloc(8, sizeof(CTItem));
     p->capacity = 8;
-    p->size = 0;
     return p;
 }
 
@@ -99,7 +98,7 @@ unsigned int CTSearchByValue(CodeTable* table, char value){
     return 256;
 }
 
-unsigned int CTSearchByCode(CodeTable* table, unsigned char code){
+unsigned int CTSearchByCode(CodeTable* table, unsigned int code){
     for(unsigned int i = 0; i<table->size; i++){
         if(table->pArray[i].code == code){
             return i;
@@ -108,8 +107,14 @@ unsigned int CTSearchByCode(CodeTable* table, unsigned char code){
     return 256;
 }
 
-void CTSetCode(CodeTable* table, char value, unsigned char code){
+void CTSetCode(CodeTable* table, char value, unsigned int code){
     unsigned char i = CTSearchByValue(table, value);
     if(i>255)exit(-2);
     table->pArray[i].code = code;
+}
+
+void CTSetSize(CodeTable* table, unsigned char size){
+    if(size > table->maxCodeWidth){
+        table->maxCodeWidth = size;
+    }
 }
