@@ -1,22 +1,10 @@
 #include <stdio.h>
-#include "CodeTable.h"
+#include "HuffmanCode.h"
 
 
 int main() {
-    CodeTable * test = CTInit();
-    for(int i = 0; i<26; i++){
-        CTAppend(test,'a'+i,3+i);
-    }
-    CTQSort(test);
-    for(int i = 0; i<26; i++){
-        printf("%ld\t", test->pArray[i].weight);
-    }
-    printf("\n");
-    for(int i = 0; i<26; i++){
-        printf("%c\t", test->pArray[i].value);
-    }
-    printf("\n");
-    CTFree(test);
+    CodeTable * p = Census("Lorem ipsum dolor sit amet, consectetur adipisicing elit,");
+    CTQSort(p);
     return 0;
 }
 

@@ -5,7 +5,7 @@
 
 #include "HuffmanCode.h"
 
-CodeTable* Census(const unsigned char* str){
+CodeTable* Census(const char* str){
     CodeTable * p = CTInit();
     for(size_t i = 0; str[i] != '\0'; i++){
         CTAddValue(p, str[i]);

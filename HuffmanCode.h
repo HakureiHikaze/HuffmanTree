@@ -6,4 +6,4 @@
 #pragma once
 #include "HuffmanTree.h"
 
-extern CodeTable* Census(const unsigned char* str);
+extern CodeTable* Census(const char* str);

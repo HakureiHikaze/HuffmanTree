@@ -12,7 +12,7 @@ void CTItemCpy(CTItem* to, CTItem* from){
     to->code = from->code;
 }
 
-void CTItemSet(CTItem* to, long weight, unsigned char value,unsigned char code){
+void CTItemSet(CTItem* to, long weight, char value,unsigned char code){
     to->weight = weight;
     to->value = value;
     to->code = code;
@@ -43,7 +43,7 @@ void CTSwap(CodeTable* table, unsigned char indexA, unsigned char indexB){
 }
 
 
-void CTAppend(CodeTable* table, unsigned char value, long weight){
+void CTAppend(CodeTable* table, char value, long weight){
     if(table->size>=table->capacity){
         if(table->capacity>= 256) exit(-2);
         CTItem * pNew = (CTItem*)realloc(table->pArray, table->capacity * 2 * sizeof(CTItem));
@@ -54,7 +54,7 @@ void CTAppend(CodeTable* table, unsigned char value, long weight){
     table->size++;
 }
 
-void CTAddValue(CodeTable* table, unsigned char value){
+void CTAddValue(CodeTable* table, char value){
     unsigned int i = CTSearchByValue(table,value);
     if(i == 256){
         CTAppend(table,value,1);
@@ -90,7 +90,7 @@ void CTQSort(CodeTable* table){
     QSort(table,0,table->size-1);
 }
 
-unsigned int CTSearchByValue(CodeTable* table, unsigned char value){
+unsigned int CTSearchByValue(CodeTable* table, char value){
     for(unsigned int i = 0; i<table->size; i++){
         if(table->pArray[i].value == value){
             return i;
@@ -108,7 +108,7 @@ unsigned int CTSearchByCode(CodeTable* table, unsigned char code){
     return 256;
 }
 
-void CTSetCode(CodeTable* table, unsigned char value, unsigned char code){
+void CTSetCode(CodeTable* table, char value, unsigned char code){
     unsigned char i = CTSearchByValue(table, value);
     if(i>255)exit(-2);
     table->pArray[i].code = code;
