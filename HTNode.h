@@ -11,5 +11,5 @@ typedef struct HTNode_{
     struct HTNode_* pParent,* pLeft,* pRight;
 }HTNode;
 
-extern HTNode* ConstructNode(long, long);
+extern HTNode* ConstructNode(long _weight, long _data);
 extern void DeConstructNode(HTNode*);

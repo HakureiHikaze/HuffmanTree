@@ -11,12 +11,15 @@ char compareHTNodeWeight(void* a, void* b){
         return 0;
     }
 }
-//todo: 把哈夫曼树的输入改为vector
-HuffmanTree ConstructHT(long data[][2], size_t size){                          //创建哈夫曼树
+
+HuffmanTree ConstructHT(CodeTable * table, size_t size){                          //创建哈夫曼树
     LList HTNodeList = ListInit();
     size_t remain = size;
     for(size_t i = 0; i<size; i++){
-        ListAppend(&HTNodeList, (void*)ConstructNode(data[i][0], data[i][1]));
+        ListAppend(&HTNodeList, (void*)ConstructNode(
+                table->pArray[i].weight,
+                table->pArray[i].value
+                ));
     }
     HTNode* buffer[2];
     while(remain > 1){

@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include "BitStream.h"
-#include "TableVector.h"
+#include "CodeTable.h"
 
 
 int main() {
-    FrequencyTable * test = CTInit();
+    CodeTable * test = CTInit();
     for(int i = 0; i<26; i++){
         CTAppend(test,'a'+i,3+i);
     }
@@ -17,6 +16,7 @@ int main() {
         printf("%c\t", test->pArray[i].value);
     }
     printf("\n");
+    CTFree(test);
     return 0;
 }
 
